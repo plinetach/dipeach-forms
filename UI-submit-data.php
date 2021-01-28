@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,13 +38,18 @@
         <form id="fsubmit" method="post" action="prepare-for-db.php">
             <h2> Συμπληρώστε τα παρακάτω πεδία και πατήστε "Υποβολή"</h2><br>
             <label for="numberofkids">Αριθμός παιδιών: </label>
-            <input type="text" id="numberofkids" placeholder="παράδειγμα: 2" value="" required>*<br><br>
-            <input type="checkbox" id="iaccept">
+            <input name="numberofkids" type="text" id="numberofkids" placeholder="παράδειγμα: 2" value="" required>*<br><br>
+            <input name="iaccept" type="checkbox" id="iaccept">
             <label for="iaccept">Δέχομαι</label><br><br>
-            <input type="submit" value="Υποβολή"><br><br>
+            <input type="submit" value="Υποβολή" ><br><br>
             <label style="color:darkgreen">*Υποχρεωτικό πεδίο</label>
         </form>
     
     </body>
 
 </html>
+<?php
+    session_name("mysession");
+    session_start();
+?>
+
