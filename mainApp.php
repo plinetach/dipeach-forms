@@ -1,18 +1,26 @@
 <?php
     include 'core/init.php';
-    
-    $page = new UiController();
-    $page->showLoginForm();
-    $user= new User;
-    if($user->login($_POST['username'], $_POST['password'])){
-
-        $submission = new Submission();
-        $page->showSubmissionForm();
+    if(!Input::exists()) {
+        $page = new UiController();
+        $page->showLoginForm();
+    } else {
+        $user= new User;
+       
+        ////next line just for testing
+        echo "Πάτησες ".Input::get('numberofkids'); exit;
         
-        
-        $submission->parsePost();
+        if($user->login(Input::get('username'), Input::get('password'))){
+
+            $submission = new Submission();
+            $page->showSubmissionForm();
+            
+            
+            $submission->parsePost();
 
 
-        $page->showReport();
+            $page->showReport();
+        }
     }
+    
+    
 ?>
