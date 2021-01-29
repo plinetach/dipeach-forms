@@ -1,23 +1,18 @@
 <?php
-    include 'Submission.class.php';
-    include 'UiController.class.php';
-    include 'DbController.class.php';
+    include 'core/init.php';
     
     $page = new UiController();
     $page->showLoginForm();
+    $user= new User;
+    if($user->login($_POST['username'], $_POST['password']){
 
-    $username=$_POST['username'];
-    $password= $_POST['password'];
-    $connectionToDb = new DbController();
-    if($connectionToDb->checkCredentials($username,$password)){
-
-        session_start();
-               
-        $submisssion = new Submission();
+        $submission = new Submission();
         $page->showSubmissionForm();
         
         
         $submission->parsePost();
+
+
         $page->showReport();
     }
 ?>
