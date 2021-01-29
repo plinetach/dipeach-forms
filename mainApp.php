@@ -4,7 +4,7 @@
     $page = new UiController();
     $page->showLoginForm();
     $user= new User;
-    if($user->login($_POST['username'], $_POST['password']){
+    if($user->login($_POST['username'], $_POST['password'])){
 
         $submission = new Submission();
         $page->showSubmissionForm();
