@@ -8,9 +8,9 @@ session_start();
 $GLOBALS['config'] = array(
 	'mysql' => array(
 		'host' => '127.0.0.1',
-		'username' => 'root',
-		'password' => '',
-		'db' => 'dipeach_forms'
+		'username' => 'admin',
+		'password' => 'admin',
+		'db' => 'admin_db'
 	),
 	'mail' => array(
 		'username' => '',

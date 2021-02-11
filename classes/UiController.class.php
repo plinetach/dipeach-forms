@@ -3,8 +3,8 @@ class UiController{
     private $_db;
     
     function __construct(){
-        echo "Creating UI...";
-        //$this->_db = Dbh::getInstance();
+        //echo "Creating UI...";
+        $this->_db = Dbh::getInstance();
     }
 
     function showHeader($title, $linkToCss){?>
