@@ -20,8 +20,8 @@ class AdminSubmission{
                 }       
             }
         }
-        $this->startDate = $_POST['startDate'];
-        $this->endDate = $_POST['endDate'];
+        $this->startDate = Input::get('startDate');
+        $this->endDate = Input::get('endDate');
         $this->json = json_encode($data);
     }
 
