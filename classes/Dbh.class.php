@@ -74,7 +74,7 @@ class Dbh {
 		}else if((count($where, 1))%4===0){//αν κάνει ερώτημα με τριάδες ορισμάτων ( Α >=< Β)
 			
 			$operators = array('=', '>', '<', '>=', '<=');
-			$values_and_operators = "";
+			$fields_and_operators = "";
 			$valuess = array();
 			$i = 1;
 				foreach($where as $one_clause) {

@@ -9,11 +9,14 @@ if(!Input::exists()){
 else{
     $adminSub = new AdminSubmission();
     $adminSub->parseAdminPost();
-    $toDb = array("formFields"=> $adminSub->getJson(), "startDate"=>$adminSub->getStartDate(), "endDate"=>$adminSub->getEndDate());
+    $toDb = array(
+        "formFields"=> $adminSub->getJson(),
+        "startDate"=>$adminSub->getStartDate(),
+        "endDate"=>$adminSub->getEndDate());
    
-    foreach($toDb as $key=>$element){
-        echo $key.' '.$element.'<br>';
-    }
+    // foreach($toDb as $key=>$element){
+    //     echo $key.' '.$element.'<br>';
+    // }
     
-    // $adminSub->_db->insert('forms', $toDb);
+    $adminSub->getDb()->insert('forms', $toDb);
 }

@@ -1,9 +1,9 @@
 <?php
 class AdminSubmission{
-    public $_db;
-    protected $startDate;
-    protected $endDate;
-    protected $json;
+    protected $_db;
+    protected $_startDate;
+    protected $_endDate;
+    protected $_json;
 
     public function __construct(){
         //echo 'Initializing...<br>';
@@ -20,20 +20,24 @@ class AdminSubmission{
                 }       
             }
         }
-        $this->startDate = Input::get('startDate');
-        $this->endDate = Input::get('endDate');
-        $this->json = json_encode($data);
+        $this->_startDate = Input::get('startDate');
+        $this->_endDate = Input::get('endDate');
+        $this->_json = json_encode($data);
     }
 
     public function getStartDate(){
-        return $this->startDate;
+        return $this->_startDate;
     }
 
     public function getEndDate(){
-        return $this->endDate;
+        return $this->_endDate;
     }
 
     public function getJson(){
-        return $this->json;
+        return $this->_json;
+    }
+
+    public function getDb(){
+        return $this->_db;
     }
 }

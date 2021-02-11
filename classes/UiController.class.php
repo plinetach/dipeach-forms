@@ -166,12 +166,13 @@ class UiController{
             </div>
             <div class='dates'>
                 <label for="startDate">Start Date</label>
-                <input type="date" name="startDate" required>
+                <input type="date" name="startDate" id="startDate" required>
                 <label for="endDate">End Date</label>
-                <input type="date" name="endDate" required>  
+                <input type="date" name="endDate" id="endDate" required >  
             </div>
             <button type="submit">Υποβολή</button>
         </form>
+        <label name="errorLabel" class="error"></label>
         
     <?php
     }
