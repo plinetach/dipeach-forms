@@ -178,7 +178,7 @@ class UiController{
     }
 
     function showAdminSubmissionDynaForm(){?>
-        <form class = "form" action="createForm.php" style="display: block;" method="post"></form>
+        <form class = "form" action="createForm.php" style="display: block;" method="post">
             <div id="fields" class="fields">
                 <div id="choices1">
                     <label for="s1">1ο Πεδίο</label>
