@@ -3,8 +3,8 @@ class UiController{
     private $_db;
     
     function __construct(){
-        echo "Creating UI...";
-        //$this->_db = Dbh::getInstance();
+        echo "<strong>Creating UI...</strong><br><br>";
+        $this->_db = Dbh::getInstance();
     }
 
     function showHeader($title, $linkToCss){?>
@@ -170,6 +170,7 @@ class UiController{
                 <label for="endDate">End Date</label>
                 <input type="date" name="endDate" id="endDate" required >  
             </div>
+            <br><br>
             <button type="submit">Υποβολή</button>
         </form>
         <label name="errorLabel" class="error"></label>
@@ -187,15 +188,17 @@ class UiController{
                         <option value="2">Πεδίο NAI/OXI</option>
                     </select>
                     <button id="bn1" type="button" onclick="addField()">+</button>
+                    <br><br>
                 </div>
             </div>
-            <br><br>
+            
             <div class='dates'>
                 <label for="startDate">Start Date</label>
                 <input type="date" name="startDate" id="startDate" required>
                 <label for="endDate">End Date</label>
                 <input type="date" name="endDate" id="endDate" required >  
             </div>
+            <br><br>
             <button type="submit">Υποβολή</button>
         </form>
     <?php

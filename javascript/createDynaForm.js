@@ -11,17 +11,16 @@ function addField(){
     var newNewButtonId = 'bn' + suffix;
     var newRemoveButtonId = 'br' + suffix;
 
-    //$('#fields').append($("<br>" ));
     $('#fields').append($("<div id='"+newDivId+"'></div>" ));
     $('#'+newDivId).append($("<label for='"+newSelectId+"'>"+newLabelText+"&nbsp;</label>"));
     $('#'+newDivId).append($("<select id='"+newSelectId+"' name="+newSelectName+"></select>"));
     $('#'+newSelectId).append($("<option value='1'>Πεδίο Κειμένου</option><option value='2'>Πεδίο NAI/OXI</option>"));
     $('#'+newDivId).append($("<button id='"+newNewButtonId+"' type='button' onclick='addField()'>+</button>"));
     $('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField()'>-</button>"));
+    $('#'+newDivId).append($("<br><br>"));
     $('#bn'+oldNumberOfElements.toString()).css("display", "none");
     $('#br'+oldNumberOfElements.toString()).css("display", "none");
-
-    console.log(numberOfElements);
+    // console.log(numberOfElements);
 }
 
 function removeField(){
@@ -30,5 +29,5 @@ function removeField(){
     numberOfElements--;
     $('#bn'+numberOfElements.toString()).css("display", "inline");
     $('#br'+numberOfElements.toString()).css("display", "inline");
-    console.log(numberOfElements);
+    // console.log(numberOfElements);
 }
