@@ -3,8 +3,8 @@ class UiController{
     private $_db;
     
     function __construct(){
-        //echo "Creating UI...";
-        $this->_db = Dbh::getInstance();
+        echo "Creating UI...";
+        //$this->_db = Dbh::getInstance();
     }
 
     function showHeader($title, $linkToCss){?>
@@ -174,6 +174,30 @@ class UiController{
         </form>
         <label name="errorLabel" class="error"></label>
         
+    <?php
+    }
+
+    function showAdminSubmissionDynaForm(){?>
+        <form class = "form" action="createForm.php" style="display: block;" method="post"></form>
+            <div id="fields" class="fields">
+                <div id="choices1">
+                    <label for="s1">1ο Πεδίο</label>
+                    <select  id = "s1" name="s1">
+                        <option value="1">Πεδίο Κειμένου</option>
+                        <option value="2">Πεδίο NAI/OXI</option>
+                    </select>
+                    <button id="bn1" type="button" onclick="addField()">+</button>
+                </div>
+            </div>
+            <br><br>
+            <div class='dates'>
+                <label for="startDate">Start Date</label>
+                <input type="date" name="startDate" id="startDate" required>
+                <label for="endDate">End Date</label>
+                <input type="date" name="endDate" id="endDate" required >  
+            </div>
+            <button type="submit">Υποβολή</button>
+        </form>
     <?php
     }
 

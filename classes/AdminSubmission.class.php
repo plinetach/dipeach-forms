@@ -6,12 +6,12 @@ class AdminSubmission{
     protected $_json;
 
     public function __construct(){
-        //echo 'Initializing...<br>';
-		$this->_db = Dbh::getInstance();
+        echo 'Initializing...<br>';
+		// $this->_db = Dbh::getInstance();
 	}
     
     public function parseAdminPost(){
-        //echo 'Parsing post...<br>';
+        echo 'Parsing post...<br>';
         $data = array();
         foreach($_POST as $key => $value){            
             if($key!='startDate' && $key!='endDate'){
