@@ -13,7 +13,7 @@ if(!Input::exists()){
         $i=0;
         foreach($elements as $element){            
             $title = $element[1];            
-            $type = getType($element[0]); 
+            $type = getTyp($element[0]); 
             $required= getRequired($element[2]);           
             $id="el".$i;
             $page->showElement($id, $type, $required, $title);
@@ -29,7 +29,7 @@ if(!Input::exists()){
 
     //CODE TO SAVE TO DB GOES HERE
     //............................
-    
+
 }
 
 function getForm($primaryKey){
@@ -40,7 +40,7 @@ function getForm($primaryKey){
     return $linkDb->results();    
 }
 
-function getType($cell){
+function getTyp($cell){
     if($cell=='1'){
         return 'text';
     }else if($cell=='2'){
