@@ -8,16 +8,12 @@ if(!Input::exists()){
 }
 else{
     $adminSub = new AdminSubmission();
-    $adminSub->parseAdminPost();
     $toDb = array(
         "formFields"=> $adminSub->getJson(),
         "startDate"=>$adminSub->getStartDate(),
-        "endDate"=>$adminSub->getEndDate());
+        "endDate"=>$adminSub->getEndDate()
+    );
     
-    echo "<strong>Saving to admin_db...</strong><br><br>";
-    foreach($toDb as $key=>$element){
-        echo $key.' '.$element.'<br>';
-    }
-    
+    echo "<strong>Saving to admin_db...</strong><br><br>";    
     $adminSub->getDb()->insert('forms', $toDb);
 }

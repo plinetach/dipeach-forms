@@ -7,6 +7,8 @@ class Dbh {
 			$_error = false, 
 			$_results,
 			$_count = 0;
+	protected $_lastInsertId;
+
 			
 	private function __construct(){
 		try {
@@ -141,6 +143,8 @@ class Dbh {
 			}
 			
 			$sql = "INSERT INTO {$table} (`". implode('`, `', $keys) ."`) VALUES ({$values})";
+			//$this->_lastInsertId = $this->_pdo->lastInsertId('pk_forms');
+			echo $this->_lastInsertId;
 			echo $sql;
 		
 			if(!$this->query($sql, $fields)->error()) {
@@ -193,5 +197,9 @@ class Dbh {
 	
 	public function count() {
 		return $this->_count;
+	}
+
+	public function getLastInsertId(){
+		return $this->_lastInsertId;
 	}
 }
