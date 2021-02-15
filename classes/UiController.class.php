@@ -55,12 +55,12 @@ class UiController{
             
             <div class='dates'>
                 <label for="startDate">Start Date</label>
-                <input type="date" name="startDate" id="startDate" required>
+                <input type="date" name="startDate" id="startDate"  required onchange="checkDate()">
                 <label for="endDate">End Date</label>
-                <input type="date" name="endDate" id="endDate" required >  
+                <input type="date" name="endDate" id="endDate"  required onchange="checkDate()" >  
             </div>
             <br><br>
-            <button type="submit">Υποβολή</button>
+            <button id="submit" type="submit">Υποβολή</button>
         </form>
     <?php
     }

@@ -16,4 +16,7 @@ else{
     
     echo "<strong>Saving to admin_db...</strong><br><br>";    
     $adminSub->getDb()->insert('forms', $toDb);
+
+    //create submission table to db
+
 }

@@ -27,13 +27,13 @@ class AdminSubmission{
                     //echo $key.'<br>';
                     $i++;
                 }
-                $data[$i].= $value.' ';
+                $data[$i].= $value.'*';
             }
         }
         
         $i=0;        
         foreach($data as $element){
-            $dataArr[$i]=explode(' ',$element,-1);
+            $dataArr[$i]=explode('*',$element,-1);
             if(sizeof($dataArr[$i])==2){
                 array_push($dataArr[$i], 'off');
             }

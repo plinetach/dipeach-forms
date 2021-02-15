@@ -41,3 +41,16 @@ function removeField(){
     $('#br'+numberOfElements.toString()).css("display", "inline");
     // console.log(numberOfElements);
 }
+
+function checkDate(){
+    var startDate = $('#startDate').val();
+    var endDate = $('#endDate').val();
+    if(startDate && endDate){
+        if(startDate>endDate){
+            alert('wrong date');
+            $('#submit').prop('disabled', true);
+        }else{
+            $('#submit').prop('disabled', false);   
+        }
+    }
+}

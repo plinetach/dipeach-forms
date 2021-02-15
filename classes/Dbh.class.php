@@ -144,7 +144,7 @@ class Dbh {
 			
 			$sql = "INSERT INTO {$table} (`". implode('`, `', $keys) ."`) VALUES ({$values})";
 			//$this->_lastInsertId = $this->_pdo->lastInsertId('pk_forms');
-			echo $this->_lastInsertId;
+			//echo $this->_lastInsertId;
 			echo $sql;
 		
 			if(!$this->query($sql, $fields)->error()) {

@@ -8,14 +8,15 @@ if(!Input::exists()){
         $file = "userSubmission.php";
         $elements= json_decode($results[0]->formFields);
         $page = new UiController;
+        $page->showHeader("Υποβολή Χρήστη");
         $page->startSubmissionForm($file);
+        $i=0;
         foreach($elements as $element){
-            $i=0;
             $type = $element[0];
             $title = $element[1];
             $required= $element[2];
             
-            $page->showHeader("Υποβολή Χρήστη");
+            
 
             if($type=='1'){
                 $type = 'text';
