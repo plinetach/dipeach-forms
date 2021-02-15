@@ -9,31 +9,18 @@ if(!Input::exists()){
         $elements= json_decode($results[0]->formFields);
         $page = new UiController;
         $page->showHeader("Υποβολή Χρήστη");
-        $page->startSubmissionForm($file);
+        $page->openSubmissionForm($file);
         $i=0;
-        foreach($elements as $element){
-            $type = $element[0];
-            $title = $element[1];
-            $required= $element[2];
-            
-            
-
-            if($type=='1'){
-                $type = 'text';
-            }else if($type=='2'){
-                $type = "checkbox";
-            }
-            if($required="on"){
-                $required="required";
-            }else{
-                $required='';
-            }
+        foreach($elements as $element){            
+            $title = $element[1];            
+            $type = getType($element[0]); 
+            $required= getRequired($element[2]);           
             $id="el".$i;
-
             $page->showElement($id, $type, $required, $title);
+
             $i++;
         }
-        $page->endSubmissionForm();
+        $page->closeSubmissionForm();
         $page->showFooter();
     }
 }else{
@@ -42,7 +29,7 @@ if(!Input::exists()){
 
     //CODE TO SAVE TO DB GOES HERE
     //............................
-
+    
 }
 
 function getForm($primaryKey){
@@ -51,4 +38,19 @@ function getForm($primaryKey){
     $linkDb->get("forms", $criteria);
 
     return $linkDb->results();    
+}
+
+function getType($cell){
+    if($cell=='1'){
+        return 'text';
+    }else if($cell=='2'){
+        return "checkbox";
+    }
+}
+
+function getRequired($cell){
+    if($cell="on"){
+        return "required";
+    }
+    return null;
 }

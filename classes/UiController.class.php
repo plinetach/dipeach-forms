@@ -31,7 +31,7 @@ class UiController{
         </form>
     <?php }
 
-    function startSubmissionForm($fileName){?>
+    function openSubmissionForm($fileName){?>
         <form method="post" action="<?php echo $fileName?>">
     <?php }
 
@@ -72,7 +72,7 @@ class UiController{
     <?php
     }
 
-    function endSubmissionForm(){?>
+    function closeSubmissionForm(){?>
         <button type="submit">Υποβολή</button>
         </form> 
     <?php
