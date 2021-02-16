@@ -55,15 +55,15 @@ function removeField(number){
     $('#choices'+ suffix).remove();    
 }
 
-function checkDate(){
-    var startDate = $('#startDate').val();
-    var endDate = $('#endDate').val();
-    if(startDate && endDate){
-        if(startDate>endDate){
-            alert('wrong date');
-            $('#submit').prop('disabled', true);
-        }else{
-            $('#submit').prop('disabled', false);   
-        }
-    }
-}
+// function checkDate(){
+//     var startDate = $('#startDate').val();
+//     var endDate = $('#endDate').val();
+//     if(startDate && endDate){
+//         if(startDate>endDate){
+//             alert('wrong date');
+//             $('#submit').prop('disabled', true);
+//         }else{
+//             $('#submit').prop('disabled', false);   
+//         }
+//     }
+// }
