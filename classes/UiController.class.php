@@ -62,21 +62,17 @@ function showAdminHeader($title, $linkToCss=''){?>
                     <input type="text" id="title1" name="title1" required placeholder="Τίτλος πεδίου">
                     <input type="checkbox" id="required1" name="required1" checked>
                     <label for="required1">Απαιτείται</label>
-                    <br>
-                    <button id="bn1" type="button" onclick="addField()">+</button>
                     <br><br>
                 </div>
             </div>
+            <button id="bn1" type="button" onclick="addField()">+</button>
+            <br><br>
             
             <div class='dates'>
-                <!-- <label for="startDate">Start Date</label>
-                <input type="date" name="startDate" id="startDate"  required onchange="checkDate()">
-                <label for="endDate">End Date</label>
-                <input type="date" name="endDate" id="endDate"  required onchange="checkDate()" >   -->
                 <label for="from">From</label>
-                <input type="text" id="startDate" name="startDate">
+                <input type="text" id="startDate" name="startDate" autocomplete="off" required>
                 <label for="to">to</label>
-                <input type="text" id="endDate" name="endDate">
+                <input type="text" id="endDate" name="endDate" autocomplete="off" required>
             </div>
             <br><br>
             <button id="submit" type="submit">Υποβολή</button>

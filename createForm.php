@@ -15,11 +15,6 @@ else{
         "startDate"=>$startDate,
         "endDate"=>$endDate
     );
-    // $toDb = array(
-    //     "formFields"=> $adminSub->getJson(),
-    //     "startDate"=>$adminSub->getStartDate(),
-    //     "endDate"=>$adminSub->getEndDate()
-    // );
     
     echo "<strong>Saving to admin_db...</strong><br><br>";    
     $adminSub->getDb()->insert('forms', $toDb);
