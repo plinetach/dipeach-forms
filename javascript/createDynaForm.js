@@ -49,22 +49,26 @@ function addField(){
     $('#'+newDivId).append($("<input type='text' placeholder='Τίτλος Πεδίου' required name='"+newTitleId+"' id='"+newTitleId+"'>"));
     $('#'+newDivId).append($("<input type=checkbox checked name='"+newRequiredId+"' id='"+newRequiredId+"'>"));
     $('#'+newDivId).append($("<label for='"+newRequiredId+"'>Απαιτείται</label>"));
-    $('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField("+numberOfElements+")'>-</button>"));
-    //$('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField()'>-</button>"));
+    // $('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField("+numberOfElements+")'>-</button>"));
+    $('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField()'>-</button>"));
     $('#'+newDivId).append($("<br>"));
     $('#'+newDivId).append($("<button id='"+newNewButtonId+"' type='button' onclick='addField()'>+</button>"));
     $('#'+newDivId).append($("<br><br>"));
     $('#bn'+oldNumberOfElements.toString()).css("display", "none");
-    //$('#br'+oldNumberOfElements.toString()).css("display", "none");
+    $('#br'+oldNumberOfElements.toString()).css("display", "none");
     // console.log(numberOfElements);
 }
-
-function removeField(number){
-    var suffix = number.toString();
+//attr number for remove button to every line
+function removeField(){
+    var suffix = numberOfElements.toString();
+    // var suffix = number.toString();
     $('#choices'+ suffix).remove();
     numberOfElements--;
+    // if(number == numberOfElements){
+    //     $('#bn'+(number-1).toString()).css("display", "inline");
+    // }
     $('#bn'+numberOfElements.toString()).css("display", "inline");
-    //$('#br'+numberOfElements.toString()).css("display", "inline");
+    $('#br'+numberOfElements.toString()).css("display", "inline");
     // console.log(numberOfElements);
 }
 
