@@ -1,27 +1,27 @@
 <?php
 include 'core/init.php';
 
-$pk = 36; //THE PRIMARY KEY OF THE FORM THAT THE USER REQUESTED
+$pk = 12; //THE PRIMARY KEY OF THE FORM THAT THE USER REQUESTED
 if(!Input::exists()){
     $results = getForm($pk);
     if($results){
         $file = "userSubmission.php";
         $elements= json_decode($results[0]->formFields);
         $page = new UiController;
-        $page->showHeader("Υποβολή Χρήστη");
+        $page->showUserHeader("Υποβολή Χρήστη");
         $page->openSubmissionForm($file);
         $i=0;
         foreach($elements as $element){            
             $title = $element[1];            
             $type = getTyp($element[0]); 
-            $required= getRequired($element[2]);           
+            $required= getReq($element[2]);           
             $id="el".$i;
             $page->showElement($id, $type, $required, $title);
 
             $i++;
         }
         $page->closeSubmissionForm();
-        $page->showFooter();
+        $page->showUserFooter();
     }
 }else{
     $userSub = new UserSubmission;
@@ -31,7 +31,12 @@ if(!Input::exists()){
     //............................
 
 }
-
+function getReq($cell){
+    if($cell=="on"){
+        return "required";
+    }
+    return null;
+}
 function getForm($primaryKey){
     $criteria=array("pk_forms", "=", $primaryKey);
     $linkDb = Dbh::getInstance();
@@ -46,11 +51,4 @@ function getTyp($cell){
     }else if($cell=='2'){
         return "checkbox";
     }
-}
-
-function getRequired($cell){
-    if($cell="on"){
-        return "required";
-    }
-    return null;
 }

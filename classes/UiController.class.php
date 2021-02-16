@@ -7,17 +7,32 @@ class UiController{
         $this->_db = Dbh::getInstance();
     }
 
-    function showHeader($title, $linkToCss=''){?>
+    function showUserHeader($title, $linkToCss=''){?>
         <!DOCTYPE html>
         <html>
         <head>
         <meta charset="utf-8">
         <title> <?php echo $title?> </title>
+        
         <link rel="stylesheet" href="<?php echo 'style/'.$linkToCss?>">
 
         </head>
         <body>
     <?php }
+
+function showAdminHeader($title, $linkToCss=''){?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title> <?php echo $title?> </title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="<?php echo 'style/'.$linkToCss?>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    </head>
+    <body>
+<?php }
 
     function showLoginForm(){?>
         <form id="fsubmit" method="post" action="">
@@ -40,7 +55,7 @@ class UiController{
             <div id="fields" class="fields">
                 <div id="choices1">
                     <label for="s1">1ο Πεδίο</label>
-                    <select  id = "s1" name="s1">
+                    <select id = "s1" name="s1">
                         <option value="1">Πεδίο Κειμένου</option>
                         <option value="2">Πεδίο NAI/OXI</option>
                     </select>
@@ -54,10 +69,14 @@ class UiController{
             </div>
             
             <div class='dates'>
-                <label for="startDate">Start Date</label>
+                <!-- <label for="startDate">Start Date</label>
                 <input type="date" name="startDate" id="startDate"  required onchange="checkDate()">
                 <label for="endDate">End Date</label>
-                <input type="date" name="endDate" id="endDate"  required onchange="checkDate()" >  
+                <input type="date" name="endDate" id="endDate"  required onchange="checkDate()" >   -->
+                <label for="from">From</label>
+                <input type="text" id="startDate" name="startDate">
+                <label for="to">to</label>
+                <input type="text" id="endDate" name="endDate">
             </div>
             <br><br>
             <button id="submit" type="submit">Υποβολή</button>
@@ -67,7 +86,7 @@ class UiController{
 
     function showElement($id, $type, $required, $text){?>
         <label for="<?php echo $id?>"><?php echo $text ?></label>
-        <input type="<?php echo $type?>" id="<?php echo $id?>" name="<?php echo $id?>" required="<?php echo $required?>" placeholder="<?php echo $text?>">
+        <input type="<?php echo $type?>" id="<?php echo $id?>" name="<?php echo $id?>" <?php echo $required?> placeholder="<?php echo $text?>">
         <br><br>
     <?php
     }
@@ -82,7 +101,13 @@ class UiController{
 
     <?php }
 
-    function showFooter($linkToScript=''){?>
+    function showAdminFooter($linkToScript=''){?>
+        <script src='<?php echo "javascript/".$linkToScript?>'></script> 
+    </body>
+    </html>
+    <?php }
+    
+    function showUserFooter($linkToScript=''){?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
         <script src='<?php echo "javascript/".$linkToScript?>'></script> 
     </body>

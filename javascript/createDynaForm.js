@@ -1,4 +1,33 @@
 var numberOfElements = 1;
+var dateFormat = "mm/dd/yy",
+from = $( "#startDate" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3
+    })
+    .on( "change", function() {
+        to.datepicker( "option", "minDate", getDate( this ) );
+    }),
+to = $( "#endDate" ).datepicker({
+    defaultDate: "+1w",
+    changeMonth: true,
+    numberOfMonths: 3
+})
+    .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+    });
+
+
+function getDate( element ) {
+    var date;
+    try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+    } catch( error ) {
+        date = null;
+    }
+
+    return date;
+}
 
 function addField(){
     var oldNumberOfElements = numberOfElements;
@@ -20,7 +49,8 @@ function addField(){
     $('#'+newDivId).append($("<input type='text' placeholder='Τίτλος Πεδίου' required name='"+newTitleId+"' id='"+newTitleId+"'>"));
     $('#'+newDivId).append($("<input type=checkbox checked name='"+newRequiredId+"' id='"+newRequiredId+"'>"));
     $('#'+newDivId).append($("<label for='"+newRequiredId+"'>Απαιτείται</label>"));
-    $('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField()'>-</button>"));
+    $('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField("+numberOfElements+")'>-</button>"));
+    //$('#'+newDivId).append($("<button id='"+newRemoveButtonId+"' type='button' onclick='removeField()'>-</button>"));
     $('#'+newDivId).append($("<br>"));
     $('#'+newDivId).append($("<button id='"+newNewButtonId+"' type='button' onclick='addField()'>+</button>"));
     $('#'+newDivId).append($("<br><br>"));
@@ -29,12 +59,12 @@ function addField(){
     // console.log(numberOfElements);
 }
 
-function removeField(){
-    var suffix = numberOfElements.toString();
+function removeField(number){
+    var suffix = number.toString();
     $('#choices'+ suffix).remove();
     numberOfElements--;
     $('#bn'+numberOfElements.toString()).css("display", "inline");
-    $('#br'+numberOfElements.toString()).css("display", "inline");
+    //$('#br'+numberOfElements.toString()).css("display", "inline");
     // console.log(numberOfElements);
 }
 
