@@ -5,7 +5,7 @@ function addField(){
     numberOfElements++;
     var suffix = numberOfElements.toString();
     var newDivId = 'choices' + suffix;
-    var newLabelText = suffix + 'ο Πεδίο';
+    //var newLabelText = suffix + 'ο Πεδίο';
     var newSelectId = 's' + suffix;
     var newTitleId = 'title' + suffix;
     var newRequiredId= 'required' + suffix;
@@ -13,7 +13,8 @@ function addField(){
     var newRemoveButtonId = 'br' + suffix;
 
     $('#fields').append($("<div id='"+newDivId+"'></div>" ));
-    $('#'+newDivId).append($("<label for='"+newSelectId+"'>"+newLabelText+"&nbsp;</label>"));
+    //$('#'+newDivId).append($("<label for='"+newSelectId+"'>"+newLabelText+"&nbsp;</label>"));
+    $('#'+newDivId).append($("<label for='"+newSelectId+"'>Νέο Πεδίο&nbsp;</label>"));
     $('#'+newDivId).append($("<select id='"+newSelectId+"' name="+newSelectId+"></select>"));
     $('#'+newSelectId).append($("<option value='1'>Πεδίο Κειμένου</option><option value='2'>Πεδίο NAI/OXI</option>"));
     $('#'+newDivId).append($("<input type='text' placeholder='Τίτλος Πεδίου' required name='"+newTitleId+"' id='"+newTitleId+"'>"));
@@ -24,14 +25,9 @@ function addField(){
     $('#'+newDivId).append($("<button id='"+newNewButtonId+"' type='button' onclick='addField()'>+</button>"));
     $('#'+newDivId).append($("<br><br>"));
     $('#bn'+oldNumberOfElements.toString()).css("display", "none");
-    $('#br'+oldNumberOfElements.toString()).css("display", "none");
+    //$('#br'+oldNumberOfElements.toString()).css("display", "none");
     // console.log(numberOfElements);
 }
-
-{/* <input type="text" id="description1" placeholder="Τίτλος πεδίου">
-                    <input type="checkbox" id="required1" checked>
-                    <label for="required1">Απαιτείται</label>
-                    <br> */}
 
 function removeField(){
     var suffix = numberOfElements.toString();
