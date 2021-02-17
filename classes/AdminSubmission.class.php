@@ -42,7 +42,8 @@ class AdminSubmission{
 
         $this->_startDate = Input::get('startDate');
         $this->_endDate = Input::get('endDate');
-        $this->_json = json_encode($dataArr, JSON_UNESCAPED_UNICODE);
+        $this->_json = json_encode($dataArr);
+        // $this->_json = json_encode($dataArr, JSON_UNESCAPED_UNICODE);
         $this->_parsed=true;
     }
 

@@ -1,7 +1,7 @@
 <?php
 include 'core/init.php';
 
-$pk = 13; //THE PRIMARY KEY OF THE FORM THAT THE USER REQUESTED
+$pk = 44; //THE PRIMARY KEY OF THE FORM THAT THE USER REQUESTED
 if(!Input::exists()){
     $results = getForm($pk);
     if($results){
@@ -27,16 +27,21 @@ if(!Input::exists()){
     $userSub = new UserSubmission;
     $userSub->parseUserPost();
 
+    print_r($_SESSION['keys']);
+    print_r($_SESSION['values']);
+    
     //CODE TO SAVE TO DB GOES HERE
     //............................
 
 }
+
 function getReq($cell){
     if($cell=="on"){
         return "required";
     }
     return null;
 }
+
 function getForm($primaryKey){
     $criteria=array("pk_forms", "=", $primaryKey);
     $linkDb = Dbh::getInstance();

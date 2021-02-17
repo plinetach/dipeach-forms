@@ -18,13 +18,13 @@ class UserSubmission{
 	}
 	
 	function parseUserPost(){
-        $criteria=[];
-        $values=[];
+        $keys=array();
+        $values=array();
         foreach($_POST as $key => $value){
-            $criteria[]=$key;
-            $values[]=$value;
+            array_push($keys, $key);
+            array_push($values, $value);
         }
-        $_SESSION['criteria'] = $criteria;
+        $_SESSION['keys'] = $keys;
         $_SESSION['values'] = $values;
     }
 	  

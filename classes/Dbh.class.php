@@ -7,7 +7,6 @@ class Dbh {
 			$_error = false, 
 			$_results,
 			$_count = 0;
-	protected $_lastInsertId;
 
 			
 	private function __construct(){
@@ -59,7 +58,7 @@ class Dbh {
 	
 	private function action($action, $table, $where = array()) {
 		
-		if((count($where))===3){//αν κάνει ερώτημα με ακριβώς τρία ορίσματα ( Α >=< Β)
+		if((count($where, COUNT_RECURSIVE))===3){//αν κάνει ερώτημα με ακριβώς τρία ορίσματα ( Α >=< Β)
 			$operators = array('=', '>', '<', '>=', '<=');
 			$field 		= $where[0];
 			$operator 	= $where[1];
@@ -94,7 +93,7 @@ class Dbh {
 				}
 									
 				$sql = "{$action} FROM {$table} WHERE {$fields_and_operators}";
-				
+				//echo $sql;
 				if(!$this->query($sql, $valuess)->error()) {
 					
 					return $this;
@@ -143,9 +142,7 @@ class Dbh {
 			}
 			
 			$sql = "INSERT INTO {$table} (`". implode('`, `', $keys) ."`) VALUES ({$values})";
-			//$this->_lastInsertId = $this->_pdo->lastInsertId('pk_forms');
-			//echo $this->_lastInsertId;
-			echo $sql;
+			//echo $sql;
 		
 			if(!$this->query($sql, $fields)->error()) {
 				
@@ -187,6 +184,11 @@ class Dbh {
 			return false;
 	}
 	
+	public function create($table, $string){
+		$sql = "CREATE TABLE $table($string);";
+		$this->_pdo->exec($sql);
+	}
+
 	public function results() {
 		return $this->_results;
 	}
@@ -197,9 +199,5 @@ class Dbh {
 	
 	public function count() {
 		return $this->_count;
-	}
-
-	public function getLastInsertId(){
-		return $this->_lastInsertId;
 	}
 }
