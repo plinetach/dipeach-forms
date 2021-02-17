@@ -20,13 +20,14 @@ else{
         "endDate"=>$endDate
     );
     
+    //save form details to db
     echo "<strong>Saving to admin_db...</strong><br><br>";    
     $adminSub->getDb()->insert('forms', $toDb);
     
-    //retrieving last insert
+    //retrieving last insert (form details)
     $pk = getLastId($adminSub, $user, $formFields, $startDate, $endDate);
         
-    //create submission table to db
+    //create submission table to db based on form details
     $tableName = 'sUs'.$pk;
     $columns = getColumns($formFields);
     $adminSub->getDb()->create($tableName, $columns);
