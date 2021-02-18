@@ -20,7 +20,7 @@ class UiController{
         <body>
     <?php }
 
-function showAdminHeader($title, $linkToCss=''){?>
+private function showAdminHeader($title, $linkToCss=''){?>
     <!DOCTYPE html>
     <html>
     <head>
@@ -35,22 +35,14 @@ function showAdminHeader($title, $linkToCss=''){?>
 <?php }
 
     function showLoginForm(){?>
-        <form id="fsubmit" method="post" action="">
-            <h2> Συμπληρώστε τα παρακάτω πεδία και πατήστε "Υποβολή"</h2><br>
-            <label for="numberofkids">Αριθμός παιδιών: </label>
-            <input type="text" name="numberofkids" id="numberofkids" placeholder="παράδειγμα: 2" value="" required>*<br><br>
-            <input type="checkbox" id="iaccept">
-            <label for="iaccept">Δέχομαι</label><br><br>
-            <input type="submit" value="Υποβολή"><br><br>
-            <label style="color:darkgreen">*Υποχρεωτικό πεδίο</label>
-        </form>
+
     <?php }
 
     function openSubmissionForm($fileName){?>
         <form method="post" action="<?php echo $fileName?>">
     <?php }
 
-    function showAdminSubmissionDynaForm(){?>
+    private function showAdminSubmissionDynaForm(){?>
         <form class = "form" action="createForm.php" style="display: block;" method="post">
             <div id="fields" class="fields">
                 <div id="choices1">
@@ -97,7 +89,13 @@ function showAdminHeader($title, $linkToCss=''){?>
 
     <?php }
 
-    function showAdminFooter($linkToScript=''){?>
+    public function showFormCreationPage($user){
+        $this->showAdminHeader("Διαχειριστής:Δημιουργία Φόρμας από $user", "createDynaForm.css");
+        $this->showAdminSubmissionDynaForm();
+        $this->showAdminFooter("createDynaForm.js");
+    }
+
+    private function showAdminFooter($linkToScript=''){?>
         <script src='<?php echo "javascript/".$linkToScript?>'></script> 
     </body>
     </html>
