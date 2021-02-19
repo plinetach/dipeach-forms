@@ -1,18 +1,18 @@
 <?php
 class AdminSubmission{
     private $_db,
-     $_startDate,
-     $_endDate,
-     $_json,
-     $_user,
-     $_table,
-     $_timestamp,
-     $_pk;
+            $_startDate,
+            $_endDate,
+            $_json,
+            $_admin,
+            $_table,
+            $_timestamp,
+            $_pk;
      
 
-    public function __construct($user, $table){
+    public function __construct($admin, $table){
         echo '<strong>Initializing...</strong><br><br>';
-        $this->_user = $user;
+        $this->_admin = $admin;
         $this->_table = $table;
 		$this->_db = Dbh::getInstance();
         $this->prepareForDb();
@@ -52,16 +52,15 @@ class AdminSubmission{
         $this->_endDate =  date('Y-m-d', strtotime(str_replace('-', '/', Input::get('endDate'))));
         $this->_json = json_encode($dataArr);
         // $this->_json = json_encode($dataArr, JSON_UNESCAPED_UNICODE);
-        $this->_parsed=true;
     }
 
     private function prepareForDb(){
         $this->parseAdminPost();
         $this->_timestamp = strval(mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y")));
-        
+        $this->_pk = $this->_timestamp.$this->_admin;
         $toDb = array(
-            "timestamp"=>$this->_timestamp,
-            "user"=> $this->_user,
+            "formPk"=>$this->_pk,
+            "user"=> $this->_admin,
             "formFields"=>$this->_json,
             "startDate"=>$this->_startDate,
             "endDate"=>$this->_endDate
@@ -121,9 +120,10 @@ class AdminSubmission{
         return $this->_json;
     }
 
-    public function getPk(){
-        return $this->_pk;
+    public function getAdmin(){
+        return $this->_admin;
     }
+
 
     // private function getLastId(){
     //     $where = array(

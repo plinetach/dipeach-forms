@@ -1,20 +1,15 @@
 <?php
 class UserSubmission{
-	private $_db;
-	public $_submission_control_data;
+	private $_db,
+			$_user,
+			$_formFields,
+			$_pk;
 				
-	public function __construct(){
+	public function __construct($formPk, $user){
 		$this->_db = Dbh::getInstance();
-	}
-	
-	public function find($id){
-			
-		$get_data = $this->_db->get('submissions_control', array('id', '=', $id));
-			
-		if($get_data->count()) {
-			$this->_submission_control_data = $get_data->results();		
-			return true;
-		}
+		$this->_user = $user;	
+		$this->_pk = $formPk;
+		$this->_formFields = $this->getForm();
 	}
 	
 	function parseUserPost(){
@@ -27,6 +22,25 @@ class UserSubmission{
         $_SESSION['keys'] = $keys;
         $_SESSION['values'] = $values;
     }
+
+	private function getForm(){
+		$criteria=array("formPk", "=", $this->_pk);
+    	$this->_db->get("forms", $criteria);
+
+    	return json_decode($this->_db->results()[0]->formFields); 
+	}
+
+	public function getFormFields(){
+		return $this->_formFields;
+	}
+
+	public function getAdmin(){
+		return $this->_admin;
+	}
+
+	public function getUser(){
+		return $this->_user;
+	}
 	  
 }
 

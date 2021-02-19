@@ -1,30 +1,18 @@
 <?php
 include 'core/init.php';
+$user = "065105785";
+// $user = "029762769";
+// $user = "111111111";
+// $user = "222222222"; 
+$formPk = "1613724118admin1"; //THE PRIMARY KEY OF THE FORM THAT THE USER REQUESTED
+// $formPk = "1613724559admin1";
 
-$pk = 44; //THE PRIMARY KEY OF THE FORM THAT THE USER REQUESTED
+
+$userSub = new UserSubmission($formPk, $user);
 if(!Input::exists()){
-    $results = getForm($pk);
-    if($results){
-        $file = "userSubmission.php";
-        $elements= json_decode($results[0]->formFields);
-        $page = new UiController;
-        $page->showUserHeader("Υποβολή Χρήστη");
-        $page->openSubmissionForm($file);
-        $i=0;
-        foreach($elements as $element){            
-            $title = $element[1];            
-            $type = getTyp($element[0]); 
-            $required= getReq($element[2]);           
-            $id="el".$i;
-            $page->showElement($id, $type, $required, $title);
-
-            $i++;
-        }
-        $page->closeSubmissionForm();
-        $page->showUserFooter();
-    }
+    $page = new UiController;
+	$page->showUserSubmissionPage($user, $userSub->getFormFields());
 }else{
-    $userSub = new UserSubmission;
     $userSub->parseUserPost();
 
     print_r($_SESSION['keys']);
@@ -33,27 +21,4 @@ if(!Input::exists()){
     //CODE TO SAVE TO DB GOES HERE
     //............................
 
-}
-
-function getReq($cell){
-    if($cell=="on"){
-        return "required";
-    }
-    return null;
-}
-
-function getForm($primaryKey){
-    $criteria=array("pk_forms", "=", $primaryKey);
-    $linkDb = Dbh::getInstance();
-    $linkDb->get("forms", $criteria);
-
-    return $linkDb->results();    
-}
-
-function getTyp($cell){
-    if($cell=='1'){
-        return 'text';
-    }else if($cell=='2'){
-        return "checkbox";
-    }
 }

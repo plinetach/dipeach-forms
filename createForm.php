@@ -1,11 +1,11 @@
 <?php
 include 'core/init.php';
 
-$user = "admin1";
+$admin = "admin1";
 if(!Input::exists()){
     $page = new UiController();
-    $page->showFormCreationPage($user);
+    $page->showFormCreationPage($admin);
 }
 else{
-    $adminSub = new AdminSubmission($user,'forms');
+    $adminSub = new AdminSubmission($admin,'forms');
 }

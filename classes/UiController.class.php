@@ -2,12 +2,12 @@
 class UiController{
     private $_db;
     
-    function __construct(){
+    public function __construct(){
         echo "<strong>Creating UI...</strong><br><br>";
         $this->_db = Dbh::getInstance();
     }
 
-    function showUserHeader($title, $linkToCss=''){?>
+    private function showUserHeader($title, $linkToCss=''){?>
         <!DOCTYPE html>
         <html>
         <head>
@@ -20,7 +20,7 @@ class UiController{
         <body>
     <?php }
 
-private function showAdminHeader($title, $linkToCss=''){?>
+    private function showAdminHeader($title, $linkToCss=''){?>
     <!DOCTYPE html>
     <html>
     <head>
@@ -38,8 +38,8 @@ private function showAdminHeader($title, $linkToCss=''){?>
 
     <?php }
 
-    function openSubmissionForm($fileName){?>
-        <form method="post" action="<?php echo $fileName?>">
+    private function openSubmissionForm(){?>
+        <form method="post">
     <?php }
 
     private function showAdminSubmissionDynaForm(){?>
@@ -72,14 +72,14 @@ private function showAdminHeader($title, $linkToCss=''){?>
     <?php
     }
 
-    function showElement($id, $type, $required, $text){?>
+    private function showElement($id, $type, $required, $text){?>
         <label for="<?php echo $id?>"><?php echo $text ?></label>
         <input type="<?php echo $type?>" id="<?php echo $id?>" name="<?php echo $id?>" <?php echo $required?> placeholder="<?php echo $text?>">
         <br><br>
     <?php
     }
 
-    function closeSubmissionForm(){?>
+    private function closeSubmissionForm(){?>
         <button type="submit">Υποβολή</button>
         </form> 
     <?php
@@ -101,12 +101,44 @@ private function showAdminHeader($title, $linkToCss=''){?>
     </html>
     <?php }
     
-    function showUserFooter($linkToScript=''){?>
+    private function showUserFooter($linkToScript=''){?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
         <script src='<?php echo "javascript/".$linkToScript?>'></script> 
     </body>
     </html>
     <?php }
+
+    public function showUserSubmissionPage($user, $elements){       
+        $this->showUserHeader("Υποβολή Χρήστη $user");
+        $this->openSubmissionForm();
+        $i=0;
+        foreach($elements as $element){            
+            $title = $element[1];            
+            $type = $this->getTyp($element[0]); 
+            $required= $this->getReq($element[2]);           
+            $id="el".$i;
+            $this->showElement($id, $type, $required, $title);
+
+            $i++;
+        }
+        $this->closeSubmissionForm();
+        $this->showUserFooter();
+    }
+
+    private function getReq($cell){
+        if($cell=="on"){
+            return "required";
+        }
+        return null;
+    }
+    
+    private function getTyp($cell){
+        if($cell=='1'){
+            return 'text';
+        }else if($cell=='2'){
+            return "checkbox";
+        }
+    }
 }
 
 
