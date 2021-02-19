@@ -125,6 +125,27 @@ class UiController{
         $this->showUserFooter();
     }
 
+    public function showAvailableForms($forms, $user){
+        $this->showUserHeader("Διαθέσιμες υποβολές για τον χρήστη $user");
+        $this->openSubmissionForm();
+        ?>
+        <label for="avforms">Επιλέξτε υποβολή</label>
+        <select name="avforms" id="avforms">
+        <?php
+        $i=0;
+        foreach($forms as $form){
+            ?>
+            <option value="<?php echo $form?>"><?php echo $form?></option>
+            <?php
+            $i++;
+        }
+        ?>
+        </select>
+        <?php
+        $this->closeSubmissionForm();
+        $this->showUserFooter();
+    }
+
     private function getReq($cell){
         if($cell=="on"){
             return "required";

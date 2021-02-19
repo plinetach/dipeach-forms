@@ -32,7 +32,6 @@ class AdminSubmission{
         foreach($_POST as $key => $value){
             if($key!='startDate' && $key!='endDate'){                
                 if($startsWith($key, 's')){
-                    //echo $key.'<br>';
                     $i++;
                 }
                 $data[$i].= $value.'*';
@@ -96,7 +95,7 @@ class AdminSubmission{
         foreach($columns as $subString){
             $finalString.=$subString.',';
         }
-        //echo substr_replace($finalString ,"",-1);
+
         return substr_replace($finalString ,"",-1); //removes last comma
     }
 
@@ -123,7 +122,6 @@ class AdminSubmission{
     public function getAdmin(){
         return $this->_admin;
     }
-
 
     // private function getLastId(){
     //     $where = array(
