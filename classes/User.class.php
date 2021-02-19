@@ -16,7 +16,6 @@ class User{
         $this->_db->get('usersforms',$where);
 
         foreach($this->_db->results() as $form){
-
             array_push($this->_avForms, $form->formPk);
         }
     }
