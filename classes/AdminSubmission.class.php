@@ -57,10 +57,10 @@ class AdminSubmission{
 
     private function prepareForDb(){
         $this->parseAdminPost();
-        $this->_timestamp = mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y"));
-        $this->_pk = strval($this->_timestamp).$this->_user;
+        $this->_timestamp = strval(mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y")));
+        
         $toDb = array(
-            "pk"=>$this->_pk,
+            "timestamp"=>$this->_timestamp,
             "user"=> $this->_user,
             "formFields"=>$this->_json,
             "startDate"=>$this->_startDate,
