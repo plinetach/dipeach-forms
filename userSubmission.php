@@ -10,15 +10,15 @@ $user = "065105785";
 $page = new UiController;
 if(!Input::exists()){
     $userLoggedIn = new User($user);   
-    $_SESSION['flag']=1;
+    $_SESSION['type']="justLoggedIn";
     $page->showAvailableForms($userLoggedIn->getAvForms(), $user);
 }
 else{
     $formToShow = INPUT::get('avforms');
     $userSub = new UserSubmission($formToShow, $user);
-    if($_SESSION['flag']==1){
+    if($_SESSION['type']=="justLoggedIn"){
         $page->showUserSubmissionPage($user, $userSub->getFormFields());
-        $_SESSION['flag']=2;
+        $_SESSION['type']="justChoseFormToSubmit";
     }
     else{
         $userSub->parseUserPost();
