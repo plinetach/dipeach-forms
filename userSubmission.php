@@ -14,7 +14,7 @@ if(!Input::exists()){
     $page->showAvailableForms($userLoggedIn->getAvForms(), $user);
 }
 else{
-    $formToShow = INPUT::get('avforms');
+    $formToShow = Input::get('avforms');
     $userSub = new UserSubmission($formToShow, $user);
     if($_SESSION['type']=="justLoggedIn"){
         $page->showUserSubmissionPage($user, $userSub->getFormFields());
