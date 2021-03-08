@@ -21,7 +21,25 @@ class UserSubmission{
         }
         $_SESSION['keys'] = $keys;
         $_SESSION['values'] = $values;
+		$this->saveDataToDb();
     }
+
+	private function saveDataToDB(){
+		$tableToWrite = 'sus'.$_SESSION['formToShow'];
+        $toDb = array("user"=>$_SESSION['user']);
+        for($i=0;$i<sizeof($_SESSION['keys']); $i++){
+            $key = $_SESSION['keys'][$i];
+            $value = $_SESSION['values'][$i];
+			if($value =="on"){
+				$value=1;
+			}
+			elseif($value =="off"){
+				$value = 0;
+			}
+            $toDb["$key"] = $value;
+        }
+        $this->_db->insert($tableToWrite, $toDb);   
+	}
 
 	private function getForm(){
 		$criteria=array("formPk", "=", $this->_pk);

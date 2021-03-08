@@ -59,7 +59,11 @@ class UiController{
             </div>
             <button id="bn1" type="button" onclick="addField()">+</button>
             <br><br>
-            
+            <div class='title'>
+                <label for="title"><strong>Τίτλος Φόρμας</strong></label>
+                <input type="text" id="title" name="title" autocomplete="off" required>
+            </div>
+            <br><br>
             <div class='dates'>
                 <label for="from">From</label>
                 <input type="text" id="startDate" name="startDate" autocomplete="off" required>
@@ -118,7 +122,6 @@ class UiController{
             $required= $this->getReq($element[2]);           
             $id="el".$i;
             $this->showElement($id, $type, $required, $title);
-
             $i++;
         }
         $this->closeSubmissionForm();

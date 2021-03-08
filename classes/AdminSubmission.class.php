@@ -7,6 +7,7 @@ class AdminSubmission{
             $_admin,
             $_table,
             $_timestamp,
+            $_title,
             $_pk;
      
 
@@ -49,6 +50,7 @@ class AdminSubmission{
 
         $this->_startDate =  date('Y-m-d', strtotime(str_replace('-', '/', Input::get('startDate'))));
         $this->_endDate =  date('Y-m-d', strtotime(str_replace('-', '/', Input::get('endDate'))));
+        $this->_title = Input::get('title');
         $this->_json = json_encode($dataArr);
         // $this->_json = json_encode($dataArr, JSON_UNESCAPED_UNICODE);
     }
@@ -59,10 +61,11 @@ class AdminSubmission{
         $this->_pk = $this->_timestamp.$this->_admin;
         $toDb = array(
             "formPk"=>$this->_pk,
-            "user"=> $this->_admin,
+            "admin"=> $this->_admin,
             "formFields"=>$this->_json,
             "startDate"=>$this->_startDate,
-            "endDate"=>$this->_endDate
+            "endDate"=>$this->_endDate,
+            "title"=>$this->_title
         );
         $this->saveToDb($toDb);
     }
@@ -81,16 +84,19 @@ class AdminSubmission{
 
     private function getColumns(){
         $columns = array();
-        $finalString='subId INT(4) AUTO_INCREMENT PRIMARY KEY,';
+        $finalString='subId INT(4) AUTO_INCREMENT PRIMARY KEY, user VARCHAR(10), ';
+        $i=0;
         foreach(json_decode($this->_json) as $column){
             $nullString='';
             if($column[2]=="on"){
                 $nullString = "NOT NULL";
             }
-            $columnName = $column[1];    
+            // $columnName = $column[1];    
+            $columnName = 'el'.$i; 
             $columnType = $this->getColType($column[0]);
             $line = $columnName.' '.$columnType.' '.$nullString;
             array_push($columns, $line);
+            $i++;
         }
         foreach($columns as $subString){
             $finalString.=$subString.',';
