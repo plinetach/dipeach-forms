@@ -31,7 +31,7 @@ class AdminSubmission{
        };
 
         foreach($_POST as $key => $value){
-            if($key!='startDate' && $key!='endDate'){                
+            if($key!='startDate' && $key!='endDate' && $key!='title' && $key!='whocan'){                
                 if($startsWith($key, 's')){
                     $i++;
                 }
@@ -47,7 +47,7 @@ class AdminSubmission{
             }
             $i++;
         }
-
+        
         $this->_startDate =  date('Y-m-d', strtotime(str_replace('-', '/', Input::get('startDate'))));
         $this->_endDate =  date('Y-m-d', strtotime(str_replace('-', '/', Input::get('endDate'))));
         $this->_title = Input::get('title');
@@ -56,9 +56,15 @@ class AdminSubmission{
     }
 
     private function prepareForDb(){
+        // print_r(Input::files('whocan', 'tmp_name'));
+        // print_r($_POST);
+        // print_r(Input::get('whocan'));
+        print_r($_FILES);
         $this->parseAdminPost();
         $this->_timestamp = strval(mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y")));
         $this->_pk = $this->_timestamp.$this->_admin;
+        $filename = $this->_pk.'.xlsx';
+        // move_uploaded_file($_FILES['whocan']['tmp_name'], "/whocan/$filename");
         $toDb = array(
             "formPk"=>$this->_pk,
             "admin"=> $this->_admin,

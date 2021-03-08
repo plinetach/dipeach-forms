@@ -43,7 +43,7 @@ class UiController{
     <?php }
 
     private function showAdminSubmissionDynaForm(){?>
-        <form class = "form" action="createForm.php" style="display: block;" method="post">
+        <form class = "form" action="createForm.php" method="post" enctype="multipart/form-data">
             <div id="fields" class="fields">
                 <div id="choices1">
                     <label for="s1">1ο Πεδίο</label>
@@ -69,6 +69,11 @@ class UiController{
                 <input type="text" id="startDate" name="startDate" autocomplete="off" required>
                 <label for="to">to</label>
                 <input type="text" id="endDate" name="endDate" autocomplete="off" required>
+            </div>
+            <br><br>
+            <div class="file">
+                <label>Δικαίωμα Υποβολής</label>
+                <input name="whocan" type="file" accept=".xls,.xlsx">
             </div>
             <br><br>
             <button id="submit" type="submit">Υποβολή</button>
