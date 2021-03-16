@@ -13,13 +13,12 @@ class AdminSubmission{
 
     public function __construct($admin, $table){
         echo '<strong>Initializing...</strong><br><br>';
-        // print(php_ini_loaded_file());
         $this->_admin = $admin;
         $this->_table = $table;
 		$this->_db = Dbh::getInstance();
         $this->prepareForDb();
         // $this->createUserSubmissionsTable();
-        $this->update_usersforms_table();
+        // $this->update_usersforms_table();
 	}
 
     private function update_usersforms_table(){
