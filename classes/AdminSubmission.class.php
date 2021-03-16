@@ -13,11 +13,20 @@ class AdminSubmission{
 
     public function __construct($admin, $table){
         echo '<strong>Initializing...</strong><br><br>';
+        // print(php_ini_loaded_file());
         $this->_admin = $admin;
         $this->_table = $table;
 		$this->_db = Dbh::getInstance();
         $this->prepareForDb();
+        // $this->createUserSubmissionsTable();
+        $this->update_usersforms_table();
 	}
+
+    private function update_usersforms_table(){
+        $reader = \phpoffice\phpspreadsheet\IOFactory::createReaderForFile("05featuredemo.xlsx");
+        $reader->setReadDataOnly(true);
+        $reader->load("05featuredemo.xlsx");
+    }
 
     private function parseAdminPost(){
         echo '<strong>Parsing post...</strong><br><br>';
@@ -56,15 +65,13 @@ class AdminSubmission{
     }
 
     private function prepareForDb(){
-        // print_r(Input::files('whocan', 'tmp_name'));
-        // print_r($_POST);
-        // print_r(Input::get('whocan'));
-        print_r($_FILES);
+        print(getcwd()."\n");
         $this->parseAdminPost();
         $this->_timestamp = strval(mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y")));
         $this->_pk = $this->_timestamp.$this->_admin;
-        $filename = $this->_pk.'.xlsx';
-        // move_uploaded_file($_FILES['whocan']['tmp_name'], "/whocan/$filename");
+        $source_filename = $_FILES['whocan']['tmp_name'];
+        $target_filename = "whocan/".$_FILES['whocan']['name'];
+        move_uploaded_file($source_filename, $target_filename);
         $toDb = array(
             "formPk"=>$this->_pk,
             "admin"=> $this->_admin,
@@ -73,13 +80,13 @@ class AdminSubmission{
             "endDate"=>$this->_endDate,
             "title"=>$this->_title
         );
-        $this->saveToDb($toDb);
+        // $this->saveToDb($toDb);
     }
 
     private function saveToDb($anArray){
         echo "<strong>Saving to admin_db...</strong><br><br>";    
         $this->_db->insert($this->_table, $anArray);
-        $this->createUserSubmissionsTable();
+        
     }
 
     private function createUserSubmissionsTable(){
