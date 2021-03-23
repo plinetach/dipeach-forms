@@ -1,4 +1,6 @@
 <?php
+require_once 'vendor/autoload.php';
+require_once 'vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
 class AdminSubmission{
     private $_db,
             $_startDate,
@@ -18,13 +20,13 @@ class AdminSubmission{
 		$this->_db = Dbh::getInstance();
         $this->prepareForDb();
         // $this->createUserSubmissionsTable();
-        // $this->update_usersforms_table();
+        $this->update_usersforms_table();
 	}
 
     private function update_usersforms_table(){
-        $reader = \phpoffice\phpspreadsheet\IOFactory::createReaderForFile("05featuredemo.xlsx");
+        $reader = IOFactory::load("whocan/".$this->_pk.".xlsx");
         $reader->setReadDataOnly(true);
-        $reader->load("05featuredemo.xlsx");
+        $reader->load("whocan/".$this->_pk.".xlsx");
     }
 
     private function parseAdminPost(){
@@ -64,12 +66,11 @@ class AdminSubmission{
     }
 
     private function prepareForDb(){
-        print(getcwd()."\n");
         $this->parseAdminPost();
         $this->_timestamp = strval(mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y")));
         $this->_pk = $this->_timestamp.$this->_admin;
         $source_filename = $_FILES['whocan']['tmp_name'];
-        $target_filename = "whocan/".$_FILES['whocan']['name'];
+        $target_filename = "whocan/".$this->_pk.".xlsx";
         move_uploaded_file($source_filename, $target_filename);
         $toDb = array(
             "formPk"=>$this->_pk,
