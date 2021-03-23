@@ -1,6 +1,7 @@
 <?php
-require_once 'vendor/autoload.php';
-require_once 'vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 class AdminSubmission{
     private $_db,
             $_startDate,
@@ -10,23 +11,26 @@ class AdminSubmission{
             $_table,
             $_timestamp,
             $_title,
-            $_pk;
-     
+            $_pk,
+            $_whoCanFile;
+
 
     public function __construct($admin, $table){
         echo '<strong>Initializing...</strong><br><br>';
         $this->_admin = $admin;
         $this->_table = $table;
 		$this->_db = Dbh::getInstance();
-        $this->prepareForDb();
-        // $this->createUserSubmissionsTable();
-        $this->update_usersforms_table();
+        $this->parseAdminPost();
+        $this->saveToDb();
+        $this->createUserSubmissionsTable();
+        $this->updateUsersFormsTable();
 	}
 
-    private function update_usersforms_table(){
-        $reader = IOFactory::load("whocan/".$this->_pk.".xlsx");
-        $reader->setReadDataOnly(true);
-        $reader->load("whocan/".$this->_pk.".xlsx");
+    private function updateUsersFormsTable(){
+        require_once 'vendor/autoload.php';
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        $spreadsheet = $reader->load($this->_whoCanFile);
+        // var_dump($spreadsheet);
     }
 
     private function parseAdminPost(){
@@ -62,16 +66,14 @@ class AdminSubmission{
         $this->_endDate =  date('Y-m-d', strtotime(str_replace('-', '/', Input::get('endDate'))));
         $this->_title = Input::get('title');
         $this->_json = json_encode($dataArr);
+        $this->_timestamp = strval(mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y")));
+        $this->_pk = $this->_timestamp.$this->_admin;
+        $this->_whoCanFile = "whocan/".$this->_pk.".xlsx";
+        move_uploaded_file($_FILES['whocan']['tmp_name'], $this->_whoCanFile);
         // $this->_json = json_encode($dataArr, JSON_UNESCAPED_UNICODE);
     }
 
-    private function prepareForDb(){
-        $this->parseAdminPost();
-        $this->_timestamp = strval(mktime(date("h"),date("i"),date("s"),date("m"),date("d"),date("Y")));
-        $this->_pk = $this->_timestamp.$this->_admin;
-        $source_filename = $_FILES['whocan']['tmp_name'];
-        $target_filename = "whocan/".$this->_pk.".xlsx";
-        move_uploaded_file($source_filename, $target_filename);
+    private function saveToDb(){
         $toDb = array(
             "formPk"=>$this->_pk,
             "admin"=> $this->_admin,
@@ -80,14 +82,10 @@ class AdminSubmission{
             "endDate"=>$this->_endDate,
             "title"=>$this->_title
         );
-        // $this->saveToDb($toDb);
+        echo "<strong>Saving to admin_db...</strong><br><br>";    
+        $this->_db->insert($this->_table, $toDb);
     }
 
-    private function saveToDb($anArray){
-        echo "<strong>Saving to admin_db...</strong><br><br>";    
-        $this->_db->insert($this->_table, $anArray);
-        
-    }
 
     private function createUserSubmissionsTable(){
         $tableName = 'sUs'.$this->_pk;
