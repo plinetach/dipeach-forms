@@ -30,7 +30,19 @@ class AdminSubmission{
         require_once 'vendor/autoload.php';
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $spreadsheet = $reader->load($this->_whoCanFile);
-        // var_dump($spreadsheet);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow();
+        // IF MORE THAN ONE COLUMN
+        // $highestColumn = $worksheet->getHighestColumn();
+        // $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+        for($row=1; $row<=$highestRow; $row++){
+            $afm = $worksheet->getCellByColumnAndRow(1,$row);
+            $toDb = array(
+                "formPk"=>$this->_pk,
+                "afm"=>$afm                
+            );
+            $this->_db->insert("usersforms", $toDb);
+        }
     }
 
     private function parseAdminPost(){
@@ -39,9 +51,9 @@ class AdminSubmission{
         $dataArr=array();
         $i = -1;
 
-        $startsWith=function( $haystack, $needle ){
-            $length = strlen( $needle );
-            return substr( $haystack, 0, $length ) === $needle;
+        $startsWith=function($haystack, $needle){
+            $length = strlen($needle);
+            return substr($haystack, 0, $length) === $needle;
        };
 
         foreach($_POST as $key => $value){
